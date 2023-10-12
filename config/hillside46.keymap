@@ -79,8 +79,8 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             bindings = <
 &kp GRAVE  &kp Q       &kp W           &kp E               &kp R         &kp T                                                             &kp Y         &kp U        &kp I        &kp O       &kp P          &kp LEFT_BRACKET
 &kp TAB    &mt LGUI A  &mt LEFT_ALT S  &mt LEFT_CONTROL D  &mt LSHIFT F  &kp G                                                             &kp H         &mt RSHFT J  &mt RCTRL K  &mt LALT L  &mt LGUI SEMI  &kp RIGHT_BRACKET
-&kp LCTRL  &kp Z       &kp X           &kp C               &kp V         &kp B         &kp ESC                            &caps_word       &kp N         &kp M        &kp COMMA    &kp DOT     &kp SLASH      &kp SQT
-                                                           &key_repeat   &lt 1 ESCAPE  &lt 2 SPACE  &lt 6 TAB  &lt 3 RET  &lt 4 BACKSPACE  &lt 5 DELETE  &key_repeat
+&kp LCTRL  &kp Z       &kp X           &kp C               &kp V         &kp B         &kp C_MENU                         &caps_word       &kp N         &kp M        &kp COMMA    &kp DOT     &kp SLASH      &kp SQT
+                                                           &key_repeat   &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -106,6 +106,17 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             >;
 
             label = "Media";
+        };
+
+        Mouse {
+            bindings = <
+&trans  &trans    &trans    &trans     &trans     &trans                                        &trans     &trans            &trans            &trans          &trans             &trans
+&trans  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &trans                                        &trans     &mmv MOVE_LEFT    &mmv MOVE_DOWN    &mmv MOVE_UP    &mmv MOVE_RIGHT    &trans
+&trans  &trans    &trans    &trans     &trans     &trans  &trans                     &trans     &trans     &mwh SCROLL_LEFT  &mwh SCROLL_DOWN  &mwh SCROLL_UP  &mwh SCROLL_RIGHT  &trans
+                                       &trans     &trans  &trans  &trans  &mkp MCLK  &mkp LCLK  &mkp RCLK  &trans
+            >;
+
+            label = "Mouse";
         };
 
         Sym {
@@ -139,17 +150,6 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             >;
 
             label = "Fun";
-        };
-
-        Mouse {
-            bindings = <
-&trans  &trans    &trans    &trans     &trans     &trans                                        &trans     &trans            &trans            &trans          &trans             &trans
-&trans  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &trans                                        &trans     &mmv MOVE_LEFT    &mmv MOVE_DOWN    &mmv MOVE_UP    &mmv MOVE_RIGHT    &trans
-&trans  &trans    &trans    &trans     &trans     &trans  &trans                     &trans     &trans     &mwh SCROLL_LEFT  &mwh SCROLL_DOWN  &mwh SCROLL_UP  &mwh SCROLL_RIGHT  &trans
-                                       &trans     &trans  &trans  &trans  &mkp MCLK  &mkp LCLK  &mkp RCLK  &trans
-            >;
-
-            label = "Mouse";
         };
     };
 };
