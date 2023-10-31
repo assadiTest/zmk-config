@@ -23,6 +23,12 @@
 #define Paste  LC(V)
 #define Redo   LC(Y)i
 
+
+#urob variables
+#define HM_TAPPING_TERM 300
+#define HM_TAPPING_TERM_FAST 200
+
+
 /*
 Both mouse movement and scrolling have independently configurable
 acceleration profiles with three parameters: delay before movement,
