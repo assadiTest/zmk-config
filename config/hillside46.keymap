@@ -24,7 +24,7 @@
 #define Redo   LC(Y)i
 
 
-#urob variables
+//urob variables
 #define HM_TAPPING_TERM 300
 #define HM_TAPPING_TERM_FAST 200
 
