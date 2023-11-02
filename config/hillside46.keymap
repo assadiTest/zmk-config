@@ -176,7 +176,7 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
          * Tap-Tap-Hold: Repeat T
          * Hold: LSHIFT
          */
-        hmu: homerow_mods {
+        hmu: homerow_mods_urob {
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
             #binding-cells = <2>;
