@@ -78,6 +78,7 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
 / {
 
     behaviors {
+ */
         bm: balanced_homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             label = "BALANCED_HOMEROW_MODS";
@@ -96,6 +97,7 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+/*
         // Positional Homerow mods
         // Homerow mods that prevent accidental activations when rolling keys,
         // such as when typing `st` or `ne` on colemak-dh layouts or `as` on
