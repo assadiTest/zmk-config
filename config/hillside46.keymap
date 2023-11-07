@@ -178,7 +178,7 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
          */
         hmu: homerow_mods_urob {
             compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS";
+            label = "HOMEROW_MODS_UROB";
             #binding-cells = <2>;
             bindings = <&kp>, <&kp>;
 
