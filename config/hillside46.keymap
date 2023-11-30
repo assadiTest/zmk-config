@@ -201,6 +201,32 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             bindings = <&caps_word>;
             key-positions = <16 19>;
         };
+
+        sziasztok {
+            bindings = <&szia>;
+            key-positions = <0 11>;
+        };
+
+        udv {
+            bindings = <&udv>;
+            key-positions = <12 23>;
+        };
+    };
+
+    macros {
+        udv: udv {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp LS(U) &kp D &kp V &kp O &kp Z &kp L &kp E &kp T &kp T &kp E &kp L &kp COMMA &kp RET &kp LS(N) &kp A &kp G &kp Y &kp SPACE &kp LS(S) &kp Z &kp E &kp B &kp A &kp S &kp Z &kp T &kp I &kp A &kp N &kp SPACE &kp LS(V) &kp I &kp L &kp M &kp O &kp S>;
+            label = "UDV";
+        };
+
+        szia: szia {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&none &kp LS(S) &kp Z &kp I &kp A &kp S &kp Z &kp T &kp O &kp K &kp COMMA &kp RET>;
+            label = "SZIA";
+        };
     };
 
     keymap {
