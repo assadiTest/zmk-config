@@ -247,8 +247,6 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
 &mt TILDE ASTRK  &kp Z        &kp X            &kp C                &kp V          &kp B         &kp K_APP                          &caps_word       &kp N         &kp M         &kp COMMA     &kp DOT      &kp SLASH       &kp SQT
                                                                     &key_repeat    &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
             >;
-
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
         Nav {
@@ -315,6 +313,15 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             >;
 
             label = "Fun";
+        };
+
+        layer_7 {
+            bindings = <
+&kp GRAVE             &kp Q        &kp W            &kp F         &kp P         &kp B                                                             &kp J         &kp L         &kp U         &kp Y            &kp SEMI     &mt RIGHT_BRACKET LEFT_BRACKET
+&mt PIPE EXCLAMATION  &hmu LGUI A  &hmu LEFT_ALT R  &hmu LCTRL S  &hmu LSHFT T  &kp G                                                             &kp M         &hmu LSHFT N  &hmu LCTRL E  &hmu LEFT_ALT I  &hmu LGUI O  &kp MINUS
+&mt TILDE ASTERISK    &kp Z        &kp X            &kp C         &kp V         &kp D         &kp K_APP                          &caps_word       &kp K         &kp H         &kp COMMA     &kp DOT          &kp FSLH     &kp SQT
+                                                                  &key_repeat   &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
+            >;
         };
     };
 };
