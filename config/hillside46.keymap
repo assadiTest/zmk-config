@@ -211,6 +211,18 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             bindings = <&udv>;
             key-positions = <12 23>;
         };
+
+        to_colemak {
+            bindings = <&tog 7>;
+            key-positions = <30 31>;
+            layers = <0>;
+        };
+
+        to_qwerty {
+            bindings = <&tog 0>;
+            key-positions = <30 31>;
+            layers = <7>;
+        };
     };
 
     macros {
@@ -232,7 +244,7 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        qwerty {
             /* QWERTY
  * -------------------------------------------------------------------------------------------------------------------------------------
  * | `     |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | BKSPC |
@@ -315,7 +327,7 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             label = "Fun";
         };
 
-        layer_7 {
+        colemak {
             bindings = <
 &kp GRAVE             &kp Q        &kp W            &kp F         &kp P         &kp B                                                             &kp J         &kp L         &kp U         &kp Y            &kp SEMI     &mt RIGHT_BRACKET LEFT_BRACKET
 &mt PIPE EXCLAMATION  &hmu LGUI A  &hmu LEFT_ALT R  &hmu LCTRL S  &hmu LSHFT T  &kp G                                                             &kp M         &hmu LSHFT N  &hmu LCTRL E  &hmu LEFT_ALT I  &hmu LGUI O  &kp MINUS
