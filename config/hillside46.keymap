@@ -94,7 +94,7 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
     time-to-max-speed-ms = <500>;                 // <--- How long time until max speed is reached 
 acceleration-exponent = <1>;
 };
-/*
+*/
 
 &msc {
   acceleration-exponent = <1>;      // 0
@@ -104,6 +104,7 @@ acceleration-exponent = <1>;
 
 / {
     behaviors {
+       /*
         bm: balanced_homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             label = "BALANCED_HOMEROW_MODS";
@@ -113,6 +114,7 @@ acceleration-exponent = <1>;
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
+        */
         bhm: balanced_homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
