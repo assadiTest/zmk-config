@@ -40,37 +40,64 @@ time to max speed and the acceleration exponent. The exponent is
 usually set to 0 for constant speed, 1 for uniform acceleration or
 2 for uniform jerk.*/
 
-#define U_MOUSE_MOVE_MAX 1400                     /* <--- New max speed setting (default: 600) */
+// #define U_MOUSE_MOVE_MAX 1400                     /* <--- New max speed setting (default: 600) */
+#define ZMK_MOUSE_DEFAULT_MOVE_VAL 1400  // 600
 
-#undef MOVE_UP
-#undef MOVE_DOWN
-#undef MOVE_LEFT
-#undef MOVE_RIGHT
+// #undef MOVE_UP
+// #undef MOVE_DOWN
+// #undef MOVE_LEFT
+// #undef MOVE_RIGHT
 
-#define MOVE_UP MOVE_VERT(-U_MOUSE_MOVE_MAX)
-#define MOVE_DOWN MOVE_VERT(U_MOUSE_MOVE_MAX)
-#define MOVE_LEFT MOVE_HOR(-U_MOUSE_MOVE_MAX)
-#define MOVE_RIGHT MOVE_HOR(U_MOUSE_MOVE_MAX)
+// #define MOVE_UP MOVE_VERT(-U_MOUSE_MOVE_MAX)
+// #define MOVE_DOWN MOVE_VERT(U_MOUSE_MOVE_MAX)
+// #define MOVE_LEFT MOVE_HOR(-U_MOUSE_MOVE_MAX)
+// #define MOVE_RIGHT MOVE_HOR(U_MOUSE_MOVE_MAX)
 
+/*
 &mmv {
     time-to-max-speed-ms = <400>;             /* <--- How long time until max speed is reached (default: 500) */
 };
+*/
 
-#define U_MOUSE_SCROLL_MAX 100                    /* <--- New max speed setting (default: 10) */
+&mmv {
+  acceleration-exponent = <1>;      // 1
+  time-to-max-speed-ms = <400>;    // 40
+  delay-ms = <0>;                   // 0
+};
 
-#undef SCROLL_UP
-#undef SCROLL_DOWN
-#undef SCROLL_LEFT
-#undef SCROLL_RIGHT
+// #define U_MOUSE_SCROLL_MAX 100                    /* <--- New max speed setting (default: 10) */
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 200    // 10
 
-#define SCROLL_UP SCROLL_VERT(U_MOUSE_SCROLL_MAX)
-#define SCROLL_DOWN SCROLL_VERT(-U_MOUSE_SCROLL_MAX)
-#define SCROLL_LEFT SCROLL_HOR(-U_MOUSE_SCROLL_MAX)
-#define SCROLL_RIGHT SCROLL_HOR(U_MOUSE_SCROLL_MAX)
+// #undef SCROLL_UP
+// #undef SCROLL_DOWN
+// #undef SCROLL_LEFT
+// #undef SCROLL_RIGHT
 
+// #define SCROLL_UP SCROLL_VERT(U_MOUSE_SCROLL_MAX)
+// #define SCROLL_DOWN SCROLL_VERT(-U_MOUSE_SCROLL_MAX)
+// #define SCROLL_LEFT SCROLL_HOR(-U_MOUSE_SCROLL_MAX)
+// #define SCROLL_RIGHT SCROLL_HOR(U_MOUSE_SCROLL_MAX)
+
+#define U_MS_U &mmv MOVE_UP
+#define U_MS_D &mmv MOVE_DOWN
+#define U_MS_L &mmv MOVE_LEFT
+#define U_MS_R &mmv MOVE_RIGHT
+#define U_WH_U &msc SCRL_UP
+#define U_WH_D &msc SCRL_DOWN
+#define U_WH_L &msc SCRL_LEFT
+#define U_WH_R &msc SCRL_RIGHT
+
+/*
 &mwh {
     time-to-max-speed-ms = <500>;                 /* <--- How long time until max speed is reached */
     acceleration-exponent = <1>;
+};
+/*
+
+&msc {
+  acceleration-exponent = <1>;      // 0
+  time-to-max-speed-ms = <500>;      // 500
+  delay-ms = <0>;                   // 10
 };
 
 / {
@@ -276,7 +303,7 @@ usually set to 0 for constant speed, 1 for uniform acceleration or
             bindings = <
 &trans  &trans    &trans    &trans     &trans     &trans                                        &trans     &trans            &trans            &trans          &trans             &trans
 &trans  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &trans                                        &trans     &mmv MOVE_LEFT    &mmv MOVE_DOWN    &mmv MOVE_UP    &mmv MOVE_RIGHT    &trans
-&trans  &trans    &trans    &trans     &trans     &trans  &trans                     &trans     &trans     &mwh SCROLL_LEFT  &mwh SCROLL_DOWN  &mwh SCROLL_UP  &mwh SCROLL_RIGHT  &trans
+&trans  &trans    &trans    &trans     &trans     &trans  &trans                     &trans     &trans     &msc SCROLL_LEFT  &msc SCROLL_DOWN  &msc SCROLL_UP  &msc SCROLL_RIGHT  &trans
                                        &trans     &trans  &trans  &trans  &mkp MCLK  &mkp LCLK  &mkp RCLK  &trans
             >;
 
