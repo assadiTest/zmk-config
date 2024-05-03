@@ -113,7 +113,14 @@ acceleration-exponent = <1>;
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
-
+        bhm: balanced_homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <HM_TAPPING_TERM>;    // <---[[moderate duration]]
+            quick-tap-ms = <HM_TAPPING_TERM_FAST>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+        };
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
@@ -211,14 +218,7 @@ acceleration-exponent = <1>;
          * Hold: LSHIFT
          */
 
-        bhm: balanced_homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <HM_TAPPING_TERM>;    // <---[[moderate duration]]
-            quick-tap-ms = <HM_TAPPING_TERM_FAST>;
-            flavor = "balanced";
-            bindings = <&kp>, <&kp>;
-        };
+
 
 /*
         hmu: homerow_mods_urob {
