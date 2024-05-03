@@ -213,7 +213,7 @@ acceleration-exponent = <1>;
 
         hmu: homerow_mods_urob {
             compatible = "zmk,behavior-hold-tap";
-            // label = "HOMEROW_MODS_UROB";
+            label = "HOMEROW_MODS_UROB";
             #binding-cells = <2>;
             bindings = <&kp>, <&kp>;
 
@@ -351,7 +351,7 @@ acceleration-exponent = <1>;
 &trans  &kp F11  &kp F8  &kp F5  &kp F2  &kp SCROLLLOCK                                   &trans  &mt LSHIFT F14  &mt LCTRL F17  &mt LALT F20  &mt LGUI F22  &trans
 &trans  &kp F12  &kp F9  &kp F6  &kp F3  &kp PAUSE_BREAK  &trans                  &trans  &trans  &kp F15         &kp F18        &kp F21       &kp F24       &trans
                                  &trans  &trans           &trans  &trans  &trans  &trans  &trans  &trans
-            >;
+            >;2 LH1 LH0 RH0 RH1 RH2 
 
             label = "Fun";
         };
