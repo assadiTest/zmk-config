@@ -36,6 +36,11 @@
 #define HM_TAPPING_TERM 300
 #define HM_TAPPING_TERM_FAST 200
 
+&kscan0 {
+    debounce-press-ms = <10>;
+    debounce-release-ms = <10>;
+};
+
 /*
 Both mouse movement and scrolling have independently configurableincomplete, errors
 acceleration profiles with three parameters: delay before movement,
