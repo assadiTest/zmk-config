@@ -102,6 +102,7 @@
     };
 
 /* ZMK_UNICODE */
+#define HOST_OS 1
 
 #if !defined OS_UNICODE_LEAD
     #if HOST_OS == 2
