@@ -14,5 +14,7 @@ manifest:
       revision: main
     - name: zmk-unicode
       path: modules/zmk/unicode
+      remote: urob
+      revision: main
   self:
     path: config
