@@ -107,8 +107,8 @@ acceleration-exponent = <1>;
     delay-ms = <0>;                   // 10
 };
 
-/// {
-//    behaviors {
+/ {
+    behaviors {
 //        /*
 //        bm: balanced_homerow_mods {
 //            compatible = "zmk,behavior-hold-tap";
@@ -227,17 +227,17 @@ acceleration-exponent = <1>;
 //         * Hold: LSHIFT
 //         */
 //
-//        hmu: homerow_mods_urob {
-//            compatible = "zmk,behavior-hold-tap";
-//            label = "HOMEROW_MODS_UROB";
-//            #binding-cells = <2>;
-//            bindings = <&kp>, <&kp>;
-//
-//            flavor = "balanced";
-//            tapping-term-ms = <HM_TAPPING_TERM>;
-//            quick_tap_ms = <200>;
-//        };
-//    };
+        hmu: homerow_mods_urob {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS_UROB";
+            #binding-cells = <2>;
+            bindings = <&kp>, <&kp>;
+
+            flavor = "balanced";
+            tapping-term-ms = <HM_TAPPING_TERM>;
+            quick_tap_ms = <200>;
+        };
+    };
 //
 //    combos {
 //        compatible = "zmk,combos";
@@ -404,7 +404,7 @@ acceleration-exponent = <1>;
 //            then-layer = <0>;
 //        };
 //    };
-//};
+};
 ZMK_LAYER(default_layer,
 &kp GRAVE        &kp Q        &kp W            &kp E                &kp R          &kp T                                                             &kp Y         &kp U         &kp I         &kp O        &kp P           &lt 8 HU_DEG
 &mt PIPE EXCL    &hmu LGUI A  &hmu LEFT_ALT S  &hmu LEFT_CONTROL D  &hmu LSHIFT F  &kp G                                                             &kp H         &hmu RSHFT J  &hmu RCTRL K  &hmu LALT L  &hmu LGUI SEMI  &mt UNDER MINUS
