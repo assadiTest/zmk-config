@@ -12,5 +12,7 @@ manifest:
     - name: zmk-helpers
       remote: urob
       revision: main
+    - name: zmk-unicode
+      path: modules/zmk/unicode
   self:
     path: config
