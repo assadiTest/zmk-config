@@ -1,36 +1,36 @@
 /*  Hungarian – a‑acute   (á / Á)                               */
-ZMK_UNICODE_PAIR(hu_ae, N0, N0, E, N1,  /* 0xE1 (á)     */
+ZMK_UNICODE_PAIR(hu_a_acute, N0, N0, E, N1,  /* 0xE1 (á)     */
                        N0, N0, C, N1) /* 0xC1 (Á)     */ // á/Á
 
 /*  Hungarian – e‑acute   (é / É)                               */
-ZMK_UNICODE_PAIR(hu_ee, N0, N0, E, N9,  /* 0xE9 (é)     */
+ZMK_UNICODE_PAIR(hu_e_acute, N0, N0, E, N9,  /* 0xE9 (é)     */
                        N0, N0, C, N9) /* 0xC9 (É)     */ // é/É
 
 /*  Hungarian – i‑acute   (í / Í)                               */
-ZMK_UNICODE_PAIR(hu_ie, N0, N0, E, D,  /* 0xED (í)     */
+ZMK_UNICODE_PAIR(hu_i_acute, N0, N0, E, D,  /* 0xED (í)     */
                        N0, N0, C, D) /* 0xCD (Í)     */ // í/Í
 
 /*  Hungarian – o‑acute   (ó / Ó)                               */
-ZMK_UNICODE_PAIR(hu_oe, N0, N0, F, N3,  /* 0xF3 (ó)     */
+ZMK_UNICODE_PAIR(hu_o_acute, N0, N0, F, N3,  /* 0xF3 (ó)     */
                        N0, N0, D, N3) /* 0xD3 (Ó)     */ // ó/Ó
 
+/*  Hungarian – u‑ring (ú / Ú)                                 */
+ZMK_UNICODE_PAIR(hu_u_acute, N0, N0, F, A,  /* 0xFA (ú)     */
+                       N0, N0, D, A) /* 0xDA (Ú)     */ // ú/Ú
+
 /*  Hungarian – o‑diaeresis (ö / Ö)                            */
-ZMK_UNICODE_PAIR(hu_oeu, N0, N0, F, N6,  /* 0xF6 (ö)     */
+ZMK_UNICODE_PAIR(hu_o_diaeresis, N0, N0, F, N6,  /* 0xF6 (ö)     */
                        N0, N0, D, N6) /* 0xD6 (Ö)     */ // ö/Ö
 
 /*  Hungarian – u‑diaeresis (ü / Ü) – same as the German one   */
-ZMK_UNICODE_PAIR(hu_ue, N0, N0, F, N6,  /* 0xF6 (ü)     */
+ZMK_UNICODE_PAIR(hu_u_diaeresis, N0, N0, F, N6,  /* 0xF6 (ü)     */
                        N0, N0, D, N6) /* 0xD6 (Ü)     */ // ü/Ü
 
-/*  Hungarian – o‑dieresis (ű / Ű) – double‑acute form          */
-ZMK_UNICODE_PAIR(hu_ű, N0, N1, 7, N1,  /* 0x0171 (ű)   */
+/*  Hungarian – o‑double-acute (ő / Ő)                                 */
+ZMK_UNICODE_PAIR(hu_o_double_acute, N0, N1, 5, N1,  /* 0x0151 (ő)   */
+
+N0, N1, 5, N0) /* 0x0150 (Ő)   */ // ő/Ő
+
+/*  Hungarian – u‑double-acute (ű / Ű) – double‑acute form          */
+ZMK_UNICODE_PAIR(hu_u_double_acute, N 0, N1, 7, N1,  /* 0x0171 (ű)   */
                        N0, N1, 7, N0) /* 0x0170 (Ű)   */ // ű/Ű
-
-/*  Hungarian – o‑ring (ő / Ő)                                 */
-ZMK_UNICODE_PAIR(hu_ő, N0, N1, 5, N1,  /* 0x0151 (ő)   */
-                       N0, N1, 5, N0) /* 0x0150 (Ő)   */ // ő/Ő
-
-/*  Hungarian – u‑ring (ú / Ú)                                 */
-ZMK_UNICODE_PAIR(hu_ú, N0, N0, F, A,  /* 0xFA (ú)     */
-                       N0, N0, D, A) /* 0xDA (Ú)     */ // ú/Ú
-
