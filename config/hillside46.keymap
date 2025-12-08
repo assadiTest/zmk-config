@@ -8,9 +8,9 @@
 #define ZMK_MOUSE_DEFAULT_SCRL_VAL 200    // 10
 
 #include <behaviors/unicode.dtsi> // Requires zmk-unicode module.
+#include "zmk-helpers/helper.h"
+#include "zmk-helpers/key-labels/hillside46.h"
 #include "hu.dtsi"
-#include "./helper.h"
-#include "./zmk-nodefree-config/keypos_def/keypos_46keys_hillside.h"
 #include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
