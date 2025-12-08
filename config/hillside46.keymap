@@ -106,307 +106,313 @@ acceleration-exponent = <1>;
     delay-ms = <0>;                   // 10
 };
 
-/ {
-    behaviors {
-        /*
-        bm: balanced_homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            label = "BALANCED_HOMEROW_MODS";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;    // <---[[moderate duration]]
-            quick-tap-ms = <0>;
-            flavor = "balanced";
-            bindings = <&kp>, <&kp>;
-        };
-        */
-
-        bhm: balanced_homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <HM_TAPPING_TERM>;    // <---[[moderate duration]]
-            quick-tap-ms = <HM_TAPPING_TERM_FAST>;
-            flavor = "balanced";
-            bindings = <&kp>, <&kp>;
-        };
-
-        hm: homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS";
-            #binding-cells = <2>;
-            tapping-term-ms = <250>;
-            quick-tap-ms = <0>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
-        };
-
-        // Positional Homerow mods
-        // Homerow mods that prevent accidental activations when rolling keys,
-        // such as when typing `st` or `ne` on colemak-dh layouts or `as` on
-        // qwerty.
-        //
-        // Works by only allowing a mod to activate within tapping-term if
-        // it's on the opposite side of the keyboard or on the same side thumb
-        // keys.
-        // Further optimization using urob's timerless homerow mods method:
-        // https://github.com/urob/zmk-config#timeless-homerow-mods
-
-        hm_l: homerow_mods_left {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS_LEFT";
-            #binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
-
-            flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM>;
-            quick-tap-ms = <175>;                // repeat on tap-into-hold
-            require-prior-idle-ms = <150>;         // requires PR #1387
-            hold-trigger-key-positions = <KEYS_R KEYS_T>;
-            hold-trigger-on-release;             // requires PR #1423
-        };
-
-        hm_r: homerow_mods_right {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS_RIGHT";
-            #binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
-
-            flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM>;
-            quick_tap_ms = <175>;
-            require-prior-idle-ms = <150>;         // requires PR #1387
-            hold-trigger-key-positions = <KEYS_L KEYS_T>;
-            hold-trigger-on-release;             // requires PR #1423
-        };
-
-        // Positional Homerow mods for shift
-        // Use faster tapping term and disable some features that may
-        // cause false negatives.
-
-        hm_shift_l: hm_shift_l {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS_FAST_LEFT";
-            #binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
-
-            flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM_FAST>;
-            quick_tap_ms = <175>;
-
-            // global-quick-tap-ms = <150>;         // requires PR #1387
-
-            hold-trigger-key-positions = <KEYS_R KEYS_T>;
-
-            // hold-trigger-on-release;             // requires PR #1423
-        };
-
-        hm_shift_r: hm_shift_r {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS_FAST_RIGHT";
-            #binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
-
-            flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM_FAST>;
-            quick_tap_ms = <175>;
-
-            // global-quick-tap-ms = <150>;         // requires PR #1387
-
-            hold-trigger-key-positions = <KEYS_L KEYS_T>;
-
-            // hold-trigger-on-release;             // requires PR #1423
-        };
-
-        /*
-         * Non-Positional Homerow Mods
-         * Used for &mm_grescm_gui behavior on left hand.
-         *
-         * Usage: &hm LSHFT T
-         * Tap: T
-         * Tap-Tap-Hold: Repeat T
-         * Hold: LSHIFT
-         */
-
-        hmu: homerow_mods_urob {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS_UROB";
-            #binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
-
-            flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM>;
-            quick_tap_ms = <200>;
-        };
-    };
-
-    combos {
-        compatible = "zmk,combos";
-
-        caps_word {
-            bindings = <&caps_word>;
-            key-positions = <16 19>;
-        };
-
-        sziasztok {
-            bindings = <&szia>;
-            key-positions = <0 11>;
-        };
-
-        udv {
-            bindings = <&udv>;
-            key-positions = <12 23>;
-        };
-
-        to_colemak {
-            bindings = <&tog 7>;
-            key-positions = <30 31>;
-            layers = <0>;
-        };
-
-        to_qwerty {
-            bindings = <&tog 0>;
-            key-positions = <30 31>;
-            layers = <7>;
-        };
-    };
-
-    macros {
-        udv: udv {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&none &kp LS(U) &kp D &kp V &kp O &kp Z &kp L &kp E &kp T &kp T &kp E &kp L &kp COMMA &kp RET &kp LS(N) &kp A &kp G &kp Y &kp SPACE &kp LS(S) &kp Z &kp E &kp B &kp A &kp S &kp Z &kp T &kp I &kp A &kp N &kp SPACE &kp LS(V) &kp I &kp L &kp M &kp O &kp S>;
-            label = "UDV";
-        };
-
-        szia: szia {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&none &kp LS(S) &kp Z &kp I &kp A &kp S &kp Z &kp T &kp O &kp K &kp COMMA &kp RET>;
-            label = "SZIA";
-        };
-    };
-
+/// {
+//    behaviors {
+//        /*
+//        bm: balanced_homerow_mods {
+//            compatible = "zmk,behavior-hold-tap";
+//            label = "BALANCED_HOMEROW_MODS";
+//            #binding-cells = <2>;
+//            tapping-term-ms = <200>;    // <---[[moderate duration]]
+//            quick-tap-ms = <0>;
+//            flavor = "balanced";
+//            bindings = <&kp>, <&kp>;
+//        };
+//        */
+//
+//        bhm: balanced_homerow_mods {
+//            compatible = "zmk,behavior-hold-tap";
+//            #binding-cells = <2>;
+//            tapping-term-ms = <HM_TAPPING_TERM>;    // <---[[moderate duration]]
+//            quick-tap-ms = <HM_TAPPING_TERM_FAST>;
+//            flavor = "balanced";
+//            bindings = <&kp>, <&kp>;
+//        };
+//
+//        hm: homerow_mods {
+//            compatible = "zmk,behavior-hold-tap";
+//            label = "HOMEROW_MODS";
+//            #binding-cells = <2>;
+//            tapping-term-ms = <250>;
+//            quick-tap-ms = <0>;
+//            flavor = "tap-preferred";
+//            bindings = <&kp>, <&kp>;
+//        };
+//
+//        // Positional Homerow mods
+//        // Homerow mods that prevent accidental activations when rolling keys,
+//        // such as when typing `st` or `ne` on colemak-dh layouts or `as` on
+//        // qwerty.
+//        //
+//        // Works by only allowing a mod to activate within tapping-term if
+//        // it's on the opposite side of the keyboard or on the same side thumb
+//        // keys.
+//        // Further optimization using urob's timerless homerow mods method:
+//        // https://github.com/urob/zmk-config#timeless-homerow-mods
+//
+//        hm_l: homerow_mods_left {
+//            compatible = "zmk,behavior-hold-tap";
+//            label = "HOMEROW_MODS_LEFT";
+//            #binding-cells = <2>;
+//            bindings = <&kp>, <&kp>;
+//
+//            flavor = "balanced";
+//            tapping-term-ms = <HM_TAPPING_TERM>;
+//            quick-tap-ms = <175>;                // repeat on tap-into-hold
+//            require-prior-idle-ms = <150>;         // requires PR #1387
+//            hold-trigger-key-positions = <KEYS_R KEYS_T>;
+//            hold-trigger-on-release;             // requires PR #1423
+//        };
+//
+//        hm_r: homerow_mods_right {
+//            compatible = "zmk,behavior-hold-tap";
+//            label = "HOMEROW_MODS_RIGHT";
+//            #binding-cells = <2>;
+//            bindings = <&kp>, <&kp>;
+//
+//            flavor = "balanced";
+//            tapping-term-ms = <HM_TAPPING_TERM>;
+//            quick_tap_ms = <175>;
+//            require-prior-idle-ms = <150>;         // requires PR #1387
+//            hold-trigger-key-positions = <KEYS_L KEYS_T>;
+//            hold-trigger-on-release;             // requires PR #1423
+//        };
+//
+//        // Positional Homerow mods for shift
+//        // Use faster tapping term and disable some features that may
+//        // cause false negatives.
+//
+//        hm_shift_l: hm_shift_l {
+//            compatible = "zmk,behavior-hold-tap";
+//            label = "HOMEROW_MODS_FAST_LEFT";
+//            #binding-cells = <2>;
+//            bindings = <&kp>, <&kp>;
+//
+//            flavor = "balanced";
+//            tapping-term-ms = <HM_TAPPING_TERM_FAST>;
+//            quick_tap_ms = <175>;
+//
+//            // global-quick-tap-ms = <150>;         // requires PR #1387
+//
+//            hold-trigger-key-positions = <KEYS_R KEYS_T>;
+//
+//            // hold-trigger-on-release;             // requires PR #1423
+//        };
+//
+//        hm_shift_r: hm_shift_r {
+//            compatible = "zmk,behavior-hold-tap";
+//            label = "HOMEROW_MODS_FAST_RIGHT";
+//            #binding-cells = <2>;
+//            bindings = <&kp>, <&kp>;
+//
+//            flavor = "balanced";
+//            tapping-term-ms = <HM_TAPPING_TERM_FAST>;
+//            quick_tap_ms = <175>;
+//
+//            // global-quick-tap-ms = <150>;         // requires PR #1387
+//
+//            hold-trigger-key-positions = <KEYS_L KEYS_T>;
+//
+//            // hold-trigger-on-release;             // requires PR #1423
+//        };
+//
+//        /*
+//         * Non-Positional Homerow Mods
+//         * Used for &mm_grescm_gui behavior on left hand.
+//         *
+//         * Usage: &hm LSHFT T
+//         * Tap: T
+//         * Tap-Tap-Hold: Repeat T
+//         * Hold: LSHIFT
+//         */
+//
+//        hmu: homerow_mods_urob {
+//            compatible = "zmk,behavior-hold-tap";
+//            label = "HOMEROW_MODS_UROB";
+//            #binding-cells = <2>;
+//            bindings = <&kp>, <&kp>;
+//
+//            flavor = "balanced";
+//            tapping-term-ms = <HM_TAPPING_TERM>;
+//            quick_tap_ms = <200>;
+//        };
+//    };
+//
+//    combos {
+//        compatible = "zmk,combos";
+//
+//        caps_word {
+//            bindings = <&caps_word>;
+//            key-positions = <16 19>;
+//        };
+//
+//        sziasztok {
+//            bindings = <&szia>;
+//            key-positions = <0 11>;
+//        };
+//
+//        udv {
+//            bindings = <&udv>;
+//            key-positions = <12 23>;
+//        };
+//
+//        to_colemak {
+//            bindings = <&tog 7>;
+//            key-positions = <30 31>;
+//            layers = <0>;
+//        };
+//
+//        to_qwerty {
+//            bindings = <&tog 0>;
+//            key-positions = <30 31>;
+//            layers = <7>;
+//        };
+//    };
+//
+//    macros {
+//        udv: udv {
+//            compatible = "zmk,behavior-macro";
+//            #binding-cells = <0>;
+//            bindings = <&none &kp LS(U) &kp D &kp V &kp O &kp Z &kp L &kp E &kp T &kp T &kp E &kp L &kp COMMA &kp RET &kp LS(N) &kp A &kp G &kp Y &kp SPACE &kp LS(S) &kp Z &kp E &kp B &kp A &kp S &kp Z &kp T &kp I &kp A &kp N &kp SPACE &kp LS(V) &kp I &kp L &kp M &kp O &kp S>;
+//            label = "UDV";
+//        };
+//
+//        szia: szia {
+//            compatible = "zmk,behavior-macro";
+//            #binding-cells = <0>;
+//            bindings = <&none &kp LS(S) &kp Z &kp I &kp A &kp S &kp Z &kp T &kp O &kp K &kp COMMA &kp RET>;
+//            label = "SZIA";
+//        };
+//    };
+//
+//ZMK_LAYER(default_layer,
+//&kp GRAVE        &kp Q        &kp W            &kp E                &kp R          &kp T                                                             &kp Y         &kp U         &kp I         &kp O        &kp P           &lt 8 HU_DEG
+//&mt PIPE EXCL    &hmu LGUI A  &hmu LEFT_ALT S  &hmu LEFT_CONTROL D  &hmu LSHIFT F  &kp G                                                             &kp H         &hmu RSHFT J  &hmu RCTRL K  &hmu LALT L  &hmu LGUI SEMI  &mt UNDER MINUS
+//&mt TILDE ASTRK  &kp Z        &kp X            &kp C                &kp V          &kp B         &kp K_APP                          &caps_word       &kp N         &kp M         &kp COMMA     &kp DOT      &kp SLASH       &mt DQT SQT
+//                                                                    &key_repeat    &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
+//)
+//    keymap {
+//        compatible = "zmk,keymap";
+//
+//        qwerty {
+//            /* QWERTY
+// * -------------------------------------------------------------------------------------------------------------------------------------
+// * | `     |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | BKSPC |
+// * | TAB   |   A   |   S   |   D   |   F   |   G   |-----------------------------------|   H   |   J   |   K   |   L   |   ;   | ENTER |
+// * | CTRL  |   Z   |   X   |   C   |   V   |   B   |  ESC  |-------------------|  CAPS |   N   |   M   |   ,   |   .   |   /   |   '   |
+// *                                 |  GUI  |  ALT  |SK SHFT|  Nav  |---|  Sym  | SPACE |  ALT  |  GUI  |
+// */
+//
+//            bindings = <
+//&kp GRAVE        &kp Q        &kp W            &kp E                &kp R          &kp T                                                             &kp Y         &kp U         &kp I         &kp O        &kp P           &lt 8 HU_DEG
+//&mt PIPE EXCL    &hmu LGUI A  &hmu LEFT_ALT S  &hmu LEFT_CONTROL D  &hmu LSHIFT F  &kp G                                                             &kp H         &hmu RSHFT J  &hmu RCTRL K  &hmu LALT L  &hmu LGUI SEMI  &mt UNDER MINUS
+//&mt TILDE ASTRK  &kp Z        &kp X            &kp C                &kp V          &kp B         &kp K_APP                          &caps_word       &kp N         &kp M         &kp COMMA     &kp DOT      &kp SLASH       &mt DQT SQT
+//                                                                    &key_repeat    &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
+//            >;
+//        };
+//
+//        Nav {
+//            bindings = <
+//&trans  &trans    &trans    &trans     &trans     &trans                                       &kp K_UNDO    &kp HOME  &kp PG_DN   &kp PG_UP    &kp END    &trans
+//&trans  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &trans                                       &kp CAPSLOCK  &kp LEFT  &kp DOWN    &kp UP       &kp RIGHT  &trans
+//&trans  &trans    &trans    &trans     &trans     &trans  &trans                     &trans    &kp K_REDO    &kp INS   &kp K_COPY  &kp K_PASTE  &kp K_CUT  &trans
+//                                       &trans     &trans  &trans  &trans  &kp ENTER  &kp BSPC  &kp DELETE    &trans
+//            >;
+//
+//            label = "Nav";
+//        };
+//
+//        Mouse {
+//            bindings = <
+//&trans  &trans    &trans    &trans     &trans     &trans                                        &trans     &trans          &trans          &trans        &trans           &trans
+//&trans  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &trans                                        &trans     &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &trans
+//&trans  &trans    &trans    &trans     &trans     &trans  &trans                     &trans     &trans     &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_UP  &msc SCRL_RIGHT  &trans
+//                                       &trans     &trans  &trans  &trans  &mkp MCLK  &mkp LCLK  &mkp RCLK  &trans
+//            >;
+//
+//            label = "Mouse";
+//        };
+//
+//        Media {
+//            bindings = <
+//&trans  &trans        &trans        &trans     &trans     &trans                                                &trans             &trans               &out OUT_TOG  &trans        &trans                     &trans
+//&trans  &kp LEFT_GUI  &kp LEFT_ALT  &kp LCTRL  &kp LSHFT  &trans                                                &ext_power EP_TOG  &mt C_REWIND C_PREV  &kp C_VOL_DN  &kp C_VOL_UP  &mt C_FAST_FORWARD C_NEXT  &trans
+//&trans  &trans        &trans        &trans     &trans     &trans  &trans                      &bt BT_CLR        &bt BT_SEL 0       &bt BT_SEL 1         &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4               &key_repeat
+//                                               &trans     &trans  &trans  &trans  &kp C_STOP  &kp C_PLAY_PAUSE  &kp C_MUTE         &trans
+//            >;
+//
+//            label = "Media";
+//        };
+//
+//        Sym {
+//            bindings = <
+//&kp KP_NUMLOCK  &kp EXCL  &kp DOLLAR   &kp AMPERSAND  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS                                  &trans  &trans      &trans     &trans    &trans    &trans
+//&kp COLON       &kp AT    &kp PERCENT  &kp ASTERISK   &kp LEFT_BRACKET      &kp RIGHT_BRACKET                                      &trans  &kp LSHIFT  &kp LCTRL  &kp LALT  &kp LGUI  &trans
+//&kp TILDE       &kp HASH  &kp CARET    &kp PIPE       &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans                  &trans  &trans  &trans      &trans     &trans    &trans    &trans
+//                                                      &trans                &trans                 &trans  &trans  &trans  &trans  &trans  &trans
+//            >;
+//
+//            label = "Sym";
+//        };
+//
+//        Num {
+//            bindings = <
+//&kp KP_COMMA  &kp KP_PLUS  &kp N7  &kp N4  &kp N1  &kp EQUAL                                     &trans  &trans     &trans     &trans    &trans    &trans
+//&kp COLON     &kp TAB      &kp N8  &kp N5  &kp N2  &kp FSLH                                      &trans  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI  &trans
+//&kp STAR      &kp RET      &kp N9  &kp N6  &kp N3  &kp BSLH   &trans                     &trans  &trans  &trans     &trans     &trans    &trans    &trans
+//                                           &trans  &kp DOT    &kp N0  &kp MINUS  &trans  &trans  &trans  &trans
+//            >;
+//
+//            label = "Num";
+//        };
+//
+//        Fun {
+//            bindings = <
+//&trans  &kp F10  &kp F7  &kp F4  &kp F1  &kp PRINTSCREEN                                  &trans  &kp F13         &kp F16        &kp F19       &kp F22       &trans
+//&trans  &kp F11  &kp F8  &kp F5  &kp F2  &kp SCROLLLOCK                                   &trans  &mt LSHIFT F14  &mt LCTRL F17  &mt LALT F20  &mt LGUI F22  &trans
+//&trans  &kp F12  &kp F9  &kp F6  &kp F3  &kp PAUSE_BREAK  &trans                  &trans  &trans  &kp F15         &kp F18        &kp F21       &kp F24       &trans
+//                                 &trans  &trans           &trans  &trans  &trans  &trans  &trans  &trans
+//            >;
+//
+//            label = "Fun";
+//        };
+//
+//        colemak {
+//            bindings = <
+//&kp GRAVE             &kp Q        &kp W            &kp F         &kp P         &kp B                                                             &kp J         &kp L         &kp U         &kp Y            &kp SEMI     &mt RIGHT_BRACKET LEFT_BRACKET
+//&mt PIPE EXCLAMATION  &hmu LGUI A  &hmu LEFT_ALT R  &hmu LCTRL S  &hmu LSHFT T  &kp G                                                             &kp M         &hmu LSHFT N  &hmu LCTRL E  &hmu LEFT_ALT I  &hmu LGUI O  &kp MINUS
+//&mt TILDE ASTERISK    &kp Z        &kp X            &kp C         &kp V         &kp D         &kp K_APP                          &caps_word       &kp K         &kp H         &kp COMMA     &kp DOT          &kp FSLH     &kp SQT
+//                                                                  &key_repeat   &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
+//            >;
+//        };
+//
+//        ekezetek {
+//            bindings = <
+//&trans  &kp HU_A_ACUTE  &kp HU_I_ACUTE  &kp HU_E_ACUTE  &trans  &trans                                  &trans  &kp HU_O_ACUTE  &kp HU_O_UMLAUT  &kp HU_O_DOUBLE_ACUTE  &trans  &trans
+//&trans  &trans          &trans          &trans          &trans  &trans                                  &trans  &trans          &trans           &trans                 &trans  &trans
+//&trans  &trans          &trans          &trans          &trans  &trans  &trans                  &trans  &trans  &kp HU_U_ACUTE  &kp HU_U_ACUTE   &kp HU_U_DOUBLE_ACUTE  &trans  &trans
+//                                                        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+//            >;
+//        };
+//    };
+//
+//    conditional_layers {
+//        compatible = "zmk,conditional-layers";
+//
+//        to-col {
+//            if-layers = <0>;
+//            then-layer = <7>;
+//        };
+//
+//        to-qwe {
+//            if-layers = <7>;
+//            then-layer = <0>;
+//        };
+//    };
+//};
 ZMK_LAYER(default_layer,
-&kp GRAVE        &kp Q        &kp W            &kp E                &kp R          &kp T                                                             &kp Y         &kp U         &kp I         &kp O        &kp P           &lt 8 HU_DEG
-&mt PIPE EXCL    &hmu LGUI A  &hmu LEFT_ALT S  &hmu LEFT_CONTROL D  &hmu LSHIFT F  &kp G                                                             &kp H         &hmu RSHFT J  &hmu RCTRL K  &hmu LALT L  &hmu LGUI SEMI  &mt UNDER MINUS
-&mt TILDE ASTRK  &kp Z        &kp X            &kp C                &kp V          &kp B         &kp K_APP                          &caps_word       &kp N         &kp M         &kp COMMA     &kp DOT      &kp SLASH       &mt DQT SQT
-                                                                    &key_repeat    &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
-)
-    keymap {
-        compatible = "zmk,keymap";
-
-        qwerty {
-            /* QWERTY
- * -------------------------------------------------------------------------------------------------------------------------------------
- * | `     |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | BKSPC |
- * | TAB   |   A   |   S   |   D   |   F   |   G   |-----------------------------------|   H   |   J   |   K   |   L   |   ;   | ENTER |
- * | CTRL  |   Z   |   X   |   C   |   V   |   B   |  ESC  |-------------------|  CAPS |   N   |   M   |   ,   |   .   |   /   |   '   |
- *                                 |  GUI  |  ALT  |SK SHFT|  Nav  |---|  Sym  | SPACE |  ALT  |  GUI  |
- */
-
-            bindings = <
-&kp GRAVE        &kp Q        &kp W            &kp E                &kp R          &kp T                                                             &kp Y         &kp U         &kp I         &kp O        &kp P           &lt 8 HU_DEG
-&mt PIPE EXCL    &hmu LGUI A  &hmu LEFT_ALT S  &hmu LEFT_CONTROL D  &hmu LSHIFT F  &kp G                                                             &kp H         &hmu RSHFT J  &hmu RCTRL K  &hmu LALT L  &hmu LGUI SEMI  &mt UNDER MINUS
-&mt TILDE ASTRK  &kp Z        &kp X            &kp C                &kp V          &kp B         &kp K_APP                          &caps_word       &kp N         &kp M         &kp COMMA     &kp DOT      &kp SLASH       &mt DQT SQT
-                                                                    &key_repeat    &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
-            >;
-        };
-
-        Nav {
-            bindings = <
-&trans  &trans    &trans    &trans     &trans     &trans                                       &kp K_UNDO    &kp HOME  &kp PG_DN   &kp PG_UP    &kp END    &trans
-&trans  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &trans                                       &kp CAPSLOCK  &kp LEFT  &kp DOWN    &kp UP       &kp RIGHT  &trans
-&trans  &trans    &trans    &trans     &trans     &trans  &trans                     &trans    &kp K_REDO    &kp INS   &kp K_COPY  &kp K_PASTE  &kp K_CUT  &trans
-                                       &trans     &trans  &trans  &trans  &kp ENTER  &kp BSPC  &kp DELETE    &trans
-            >;
-
-            label = "Nav";
-        };
-
-        Mouse {
-            bindings = <
-&trans  &trans    &trans    &trans     &trans     &trans                                        &trans     &trans          &trans          &trans        &trans           &trans
-&trans  &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &trans                                        &trans     &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &trans
-&trans  &trans    &trans    &trans     &trans     &trans  &trans                     &trans     &trans     &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_UP  &msc SCRL_RIGHT  &trans
-                                       &trans     &trans  &trans  &trans  &mkp MCLK  &mkp LCLK  &mkp RCLK  &trans
-            >;
-
-            label = "Mouse";
-        };
-
-        Media {
-            bindings = <
-&trans  &trans        &trans        &trans     &trans     &trans                                                &trans             &trans               &out OUT_TOG  &trans        &trans                     &trans
-&trans  &kp LEFT_GUI  &kp LEFT_ALT  &kp LCTRL  &kp LSHFT  &trans                                                &ext_power EP_TOG  &mt C_REWIND C_PREV  &kp C_VOL_DN  &kp C_VOL_UP  &mt C_FAST_FORWARD C_NEXT  &trans
-&trans  &trans        &trans        &trans     &trans     &trans  &trans                      &bt BT_CLR        &bt BT_SEL 0       &bt BT_SEL 1         &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4               &key_repeat
-                                               &trans     &trans  &trans  &trans  &kp C_STOP  &kp C_PLAY_PAUSE  &kp C_MUTE         &trans
-            >;
-
-            label = "Media";
-        };
-
-        Sym {
-            bindings = <
 &kp KP_NUMLOCK  &kp EXCL  &kp DOLLAR   &kp AMPERSAND  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS                                  &trans  &trans      &trans     &trans    &trans    &trans
 &kp COLON       &kp AT    &kp PERCENT  &kp ASTERISK   &kp LEFT_BRACKET      &kp RIGHT_BRACKET                                      &trans  &kp LSHIFT  &kp LCTRL  &kp LALT  &kp LGUI  &trans
 &kp TILDE       &kp HASH  &kp CARET    &kp PIPE       &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans                  &trans  &trans  &trans      &trans     &trans    &trans    &trans
                                                       &trans                &trans                 &trans  &trans  &trans  &trans  &trans  &trans
-            >;
-
-            label = "Sym";
-        };
-
-        Num {
-            bindings = <
-&kp KP_COMMA  &kp KP_PLUS  &kp N7  &kp N4  &kp N1  &kp EQUAL                                     &trans  &trans     &trans     &trans    &trans    &trans
-&kp COLON     &kp TAB      &kp N8  &kp N5  &kp N2  &kp FSLH                                      &trans  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI  &trans
-&kp STAR      &kp RET      &kp N9  &kp N6  &kp N3  &kp BSLH   &trans                     &trans  &trans  &trans     &trans     &trans    &trans    &trans
-                                           &trans  &kp DOT    &kp N0  &kp MINUS  &trans  &trans  &trans  &trans
-            >;
-
-            label = "Num";
-        };
-
-        Fun {
-            bindings = <
-&trans  &kp F10  &kp F7  &kp F4  &kp F1  &kp PRINTSCREEN                                  &trans  &kp F13         &kp F16        &kp F19       &kp F22       &trans
-&trans  &kp F11  &kp F8  &kp F5  &kp F2  &kp SCROLLLOCK                                   &trans  &mt LSHIFT F14  &mt LCTRL F17  &mt LALT F20  &mt LGUI F22  &trans
-&trans  &kp F12  &kp F9  &kp F6  &kp F3  &kp PAUSE_BREAK  &trans                  &trans  &trans  &kp F15         &kp F18        &kp F21       &kp F24       &trans
-                                 &trans  &trans           &trans  &trans  &trans  &trans  &trans  &trans
-            >;
-
-            label = "Fun";
-        };
-
-        colemak {
-            bindings = <
-&kp GRAVE             &kp Q        &kp W            &kp F         &kp P         &kp B                                                             &kp J         &kp L         &kp U         &kp Y            &kp SEMI     &mt RIGHT_BRACKET LEFT_BRACKET
-&mt PIPE EXCLAMATION  &hmu LGUI A  &hmu LEFT_ALT R  &hmu LCTRL S  &hmu LSHFT T  &kp G                                                             &kp M         &hmu LSHFT N  &hmu LCTRL E  &hmu LEFT_ALT I  &hmu LGUI O  &kp MINUS
-&mt TILDE ASTERISK    &kp Z        &kp X            &kp C         &kp V         &kp D         &kp K_APP                          &caps_word       &kp K         &kp H         &kp COMMA     &kp DOT          &kp FSLH     &kp SQT
-                                                                  &key_repeat   &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
-            >;
-        };
-
-        ekezetek {
-            bindings = <
-&trans  &kp HU_A_ACUTE  &kp HU_I_ACUTE  &kp HU_E_ACUTE  &trans  &trans                                  &trans  &kp HU_O_ACUTE  &kp HU_O_UMLAUT  &kp HU_O_DOUBLE_ACUTE  &trans  &trans
-&trans  &trans          &trans          &trans          &trans  &trans                                  &trans  &trans          &trans           &trans                 &trans  &trans
-&trans  &trans          &trans          &trans          &trans  &trans  &trans                  &trans  &trans  &kp HU_U_ACUTE  &kp HU_U_ACUTE   &kp HU_U_DOUBLE_ACUTE  &trans  &trans
-                                                        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-            >;
-        };
-    };
-
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-
-        to-col {
-            if-layers = <0>;
-            then-layer = <7>;
-        };
-
-        to-qwe {
-            if-layers = <7>;
-            then-layer = <0>;
-        };
-    };
-};
+						      )
