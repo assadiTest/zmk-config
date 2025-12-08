@@ -2,7 +2,6 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-      revision: v0.3 # Pin everything to v0.3
   # projects:
   #   - name: zmk
   #     remote: zmkfirmware
@@ -12,6 +11,7 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
+      revision: v0.3 # Pin everything to v0.3
       import: app/west.yml
 
     # ZMK modules
