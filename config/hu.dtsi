@@ -1,26 +1,9 @@
-/*  Hungarian – a‑acute   (á / Á)                               */
 ZMK_UNICODE_PAIR(hu_a_acute, N0, N0, E, N1, N0, N0, C, N1) // á/Á
-
-/*  Hungarian – e‑acute   (é / É)                               */
 ZMK_UNICODE_PAIR(hu_e_acute, N0, N0, E, N9, N0, N0, C, N9) // é/É
-
-/*  Hungarian – i‑acute   (í / Í)                               */
 ZMK_UNICODE_PAIR(hu_i_acute, N0, N0, E, D, N0, N0, C, D) // í/Í
-
-/*  Hungarian – o‑acute   (ó / Ó)                               */
 ZMK_UNICODE_PAIR(hu_o_acute, N0, N0, F, N3, N0, N0, D, N3) // ó/Ó
-
-/*  Hungarian – u‑ring (ú / Ú)                                 */
 ZMK_UNICODE_PAIR(hu_u_acute, N0, N0, F, A, N0, N0, D, A) // ú/Ú
-
-/*  Hungarian – o‑diaeresis (ö / Ö)                            */
 ZMK_UNICODE_PAIR(hu_o_diaeresis, N0, N0, F, N6, N0, N0, D, N6) // ö/Ö
-
-/*  Hungarian – u‑diaeresis (ü / Ü) – same as the German one   */
 ZMK_UNICODE_PAIR(hu_u_diaeresis, N0, N0, F, N6, N0, N0, D, N6) // ü/Ü
-
-/*  Hungarian – o‑double-acute (ő / Ő)                                 */
 ZMK_UNICODE_PAIR(hu_o_double_acute, N0, N1, 5, N1, N0, N1, 5, N0) // ő/Ő
-
-/*  Hungarian – u‑double-acute (ű / Ű) – double‑acute form          */
 ZMK_UNICODE_PAIR(hu_u_double_acute, N 0, N1, 7, N1, N0, N1, 7, N0) // ű/Ű
