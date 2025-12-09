@@ -1,217 +1,120 @@
-/*
- * helper.h
- *
- * Convenience macros simplifying ZMK's keymap configuration.
- * See https://github.com/urob/zmk-helpers for documentation.
- */
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
 
-#pragma once
+#include "zmk-helpers/helper.h"
+#include "zmk-helpers/key-labels/34.h"
+#include "zmk-helpers/unicode-chars/german.dtsi"
 
-#define ZMK_HELPER_STRINGIFY(x) #x
+#define ___ &trans
 
-// Preprocessor mechanism to overload macros, cf. https://stackoverflow.com/a/27051616/6114651
-#define VARGS_(_10, _9, _8, _7, _6, _5, _4, _3, _2, _1, N, ...) N
-#define VARGS(...) VARGS_(__VA_ARGS__, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-#define CONCAT_(a, b) a##b
-#define CONCAT(a, b) CONCAT_(a, b)
+#define DEF 0
+#define NAV 1
+#define NUM 2
+#define GER 3
 
-/* ZMK_BEHAVIOR */
+/* Timeless homerow mods */
 
-#define ZMK_BEHAVIOR_CORE_adaptive_key    compatible = "zmk,behavior-adaptive-key";    #binding-cells = <0>
-#define ZMK_BEHAVIOR_CORE_auto_layer      compatible = "zmk,behavior-auto-layer";      #binding-cells = <1>
-#define ZMK_BEHAVIOR_CORE_caps_word       compatible = "zmk,behavior-caps-word";       #binding-cells = <0>
-#define ZMK_BEHAVIOR_CORE_dynamic_macro   compatible = "zmk,behavior-dynamic-macro";   #binding-cells = <1>
-#define ZMK_BEHAVIOR_CORE_hold_tap        compatible = "zmk,behavior-hold-tap";        #binding-cells = <2>
-#define ZMK_BEHAVIOR_CORE_key_repeat      compatible = "zmk,behavior-key-repeat";      #binding-cells = <0>
-#define ZMK_BEHAVIOR_CORE_macro           compatible = "zmk,behavior-macro";           #binding-cells = <0>
-#define ZMK_BEHAVIOR_CORE_macro_one_param compatible = "zmk,behavior-macro-one-param"; #binding-cells = <1>
-#define ZMK_BEHAVIOR_CORE_macro_two_param compatible = "zmk,behavior-macro-two-param"; #binding-cells = <2>
-#define ZMK_BEHAVIOR_CORE_mod_morph       compatible = "zmk,behavior-mod-morph";       #binding-cells = <0>
-#define ZMK_BEHAVIOR_CORE_sticky_key      compatible = "zmk,behavior-sticky-key";      #binding-cells = <1>
-#define ZMK_BEHAVIOR_CORE_tap_dance       compatible = "zmk,behavior-tap-dance";       #binding-cells = <0>
-#define ZMK_BEHAVIOR_CORE_tri_state       compatible = "zmk,behavior-tri-state";       #binding-cells = <0>
+// https://github.com/urob/zmk-config/tree/main#timeless-homerow-mods
+#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // left hand
+#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4  // right hand
+#define THUMBS LH1 LH0 RH0 RH1                                              // thumbs
 
-#define ZMK_BEHAVIOR(name, type, ...) \
-    / { \
-        behaviors { \
-            name: name { \
-                ZMK_BEHAVIOR_CORE_ ## type; \
-                __VA_ARGS__ \
-            }; \
-        }; \
-    };
+ZMK_HOLD_TAP(hml,
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    require-prior-idle-ms = <150>;
+    hold-trigger-key-positions = <KEYS_R THUMBS>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+)
 
-#define ZMK_ADAPTIVE_KEY(name, ...) ZMK_BEHAVIOR(name, adaptive_key, __VA_ARGS__)
-#define ZMK_AUTO_LAYER(name, ...) ZMK_BEHAVIOR(name, auto_layer, __VA_ARGS__)
-#define ZMK_CAPS_WORD(name, ...) ZMK_BEHAVIOR(name, caps_word, __VA_ARGS__)
-#define ZMK_HOLD_TAP(name, ...) ZMK_BEHAVIOR(name, hold_tap, __VA_ARGS__)
-#define ZMK_KEY_REPEAT(name, ...) ZMK_BEHAVIOR(name, key_repeat, __VA_ARGS__)
-#if ZMK_HELPERS_KEEP_NATIVE != 1
-    #undef ZMK_MACRO
-    #define ZMK_MACRO(name, ...) ZMK_BEHAVIOR(name, macro, __VA_ARGS__)
-#endif
-#define ZMK_MACRO_ONE_PARAM(name, ...) ZMK_BEHAVIOR(name, macro_one_param, __VA_ARGS__)
-#define ZMK_MACRO_TWO_PARAM(name, ...) ZMK_BEHAVIOR(name, macro_two_param, __VA_ARGS__)
-#define ZMK_MOD_MORPH(name, ...) ZMK_BEHAVIOR(name, mod_morph, __VA_ARGS__)
-#define ZMK_STICKY_KEY(name, ...) ZMK_BEHAVIOR(name, sticky_key, __VA_ARGS__)
-#define ZMK_TAP_DANCE(name, ...) ZMK_BEHAVIOR(name, tap_dance, __VA_ARGS__)
-#define ZMK_TRI_STATE(name, ...) ZMK_BEHAVIOR(name, tri_state, __VA_ARGS__)
+ZMK_HOLD_TAP(hmr,
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    require-prior-idle-ms = <150>;
+    hold-trigger-key-positions = <KEYS_L THUMBS>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+)
 
-/* ZMK_LAYER */
+/* Custom behaviors */
 
-#define ZMK_LAYER(...) CONCAT(ZMK_LAYER_, VARGS(__VA_ARGS__))(__VA_ARGS__)
-#define ZMK_LAYER_2(_name, layout) \
-    / { \
-        keymap { \
-            compatible = "zmk,keymap"; \
-            layer_ ## _name { \
-                display-name = ZMK_HELPER_STRINGIFY(_name); \
-                bindings = <layout>; \
-            }; \
-        }; \
-    };
-#define ZMK_LAYER_3(_name, layout, sensors) \
-    / { \
-        keymap { \
-            compatible = "zmk,keymap"; \
-            layer_ ## _name { \
-                display-name = ZMK_HELPER_STRINGIFY(_name); \
-                bindings = <layout>; \
-                sensor-bindings = <sensors>; \
-            }; \
-        }; \
-    };
+// tap: copy | double-tap: cut
+ZMK_TAP_DANCE(copy_cut,
+    tapping-term-ms = <200>;
+    bindings = <&kp LC(INS)>, <&kp LC(X)>;
+)
 
-/* ZMK_COMBOS */
+// tap: backspace | shift + tap: delete | hold: num layer
+ZMK_MOD_MORPH(bs_del_num,
+    bindings = <&lt NUM BSPC>, <&kp DEL>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+)
 
-#define ALL 0xff
-#if !defined COMBO_TERM
-    #define COMBO_TERM 30
-#endif
+// windows sleep macro
+ZMK_MACRO(win_sleep,
+    wait-ms = <100>;
+    tap-ms = <5>;
+    bindings = <&kp LG(X) &kp U &kp S>;
+)
 
-#define ZMK_COMBO(...) CONCAT(ZMK_COMBO_, VARGS(__VA_ARGS__))(__VA_ARGS__)
-#define ZMK_COMBO_3(name, combo_bindings, keypos) \
-    ZMK_COMBO_4(name, combo_bindings, keypos, ALL)
-#define ZMK_COMBO_4(name, combo_bindings, keypos, combo_layers) \
-    ZMK_COMBO_5(name, combo_bindings, keypos, combo_layers, COMBO_TERM)
-#define ZMK_COMBO_5(name, combo_bindings, keypos, combo_layers, combo_timeout) \
-    ZMK_COMBO_6(name, combo_bindings, keypos, combo_layers, combo_timeout, 0)
-#define ZMK_COMBO_6(name, combo_bindings, keypos, combo_layers, combo_timeout, combo_idle) \
-    ZMK_COMBO_7(name, combo_bindings, keypos, combo_layers, combo_timeout, combo_idle, )
-#define ZMK_COMBO_7(name, combo_bindings, keypos, combo_layers, combo_timeout, combo_idle, combo_vaargs) \
-    / { \
-        combos { \
-            compatible = "zmk,combos"; \
-            combo_ ## name { \
-                timeout-ms = <combo_timeout>; \
-                bindings = <combo_bindings>; \
-                key-positions = <keypos>; \
-                layers = <combo_layers>; \
-                require-prior-idle-ms = <combo_idle>; \
-                combo_vaargs \
-            }; \
-        }; \
-    };
+// euro sign
+ZMK_UNICODE_SINGLE(euro_sign, N2, N0, A, C)  // €
 
-/* ZMK_LEADER_SEQUENCE */
+// replace a/o/u/s with German umlauts when NAV and NUM are held jointly
+ZMK_CONDITIONAL_LAYER(ger, NAV NUM, GER)
 
-#define ZMK_LEADER_SEQUENCE(...) CONCAT(ZMK_LEADER_SEQUENCE_, VARGS(__VA_ARGS__))(__VA_ARGS__)
-#define ZMK_LEADER_SEQUENCE_3(name, leader_bindings, sequence) \
-    / { \
-        leader_sequences { \
-            compatible = "zmk,leader-sequences"; \
-            leader_sequence_ ## name { \
-                bindings = <leader_bindings>; \
-                key-positions = <sequence>; \
-            }; \
-        }; \
-    };
-#define ZMK_LEADER_SEQUENCE_4(name, leader_bindings, sequence, leader_layers) \
-    ZMK_LEADER_SEQUENCE_5(name, leader_bindings, sequence, leader_layers, )
-#define ZMK_LEADER_SEQUENCE_5(name, leader_bindings, sequence, leader_layers, leader_vaargs) \
-    / { \
-        leader_sequences { \
-            compatible = "zmk,leader-sequences"; \
-            leader_sequence_ ## name { \
-                bindings = <leader_bindings>; \
-                key-positions = <sequence>; \
-                layers = <leader_layers>; \
-                leader_vaargs \
-            }; \
-        }; \
-    };
+// combos
+ZMK_COMBO(sleep,    &win_sleep,  RT3 RT4, NAV)  // put Windows to sleep, only active on NAV layer
+ZMK_COMBO(copy_cut, &copy_cut,   LB2 LB3, ALL)  // copy on tap, cut on double-tap, active on all layers
+ZMK_COMBO(paste,    &kp LS(INS), LB1 LB2, ALL)  // paste, active on all layers
 
-/* ZMK_CONDITIONAL_LAYER */
+/* Keymap */
 
-#define ZMK_CONDITIONAL_LAYER(name, if_layers, then_layer) \
-    / { \
-        conditional_layers { \
-            compatible = "zmk,conditional-layers"; \
-            tri_layer_ ## name { \
-                if-layers = <if_layers>; \
-                then-layer = <then_layer>; \
-            }; \
-        }; \
-    };
+ZMK_LAYER(default_layer,
+     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+          &kp Q         &kp W         &kp F         &kp P         &kp B             &kp J         &kp L         &kp U         &kp Y         &kp SQT
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          &hml LGUI A   &hml LALT R   &hml LCTRL S  &hml LSHFT T  &kp G             &kp M         &hmr RSHFT N  &hmr LCTRL E  &hmr LALT I   &hmr LGUI O
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp SEMI
+     // ╰─────────────────────────────────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────────────────────────────────╯
+                                                    &lt NAV SPACE &kp RET           &bs_del_num   &sk LSHFT
+     //                                           ╰─────────────┴─────────────╯   ╰─────────────┴─────────────╯
+)
 
-/* ZMK_UNICODE */
+ZMK_LAYER(nav_layer,
+     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+          ___           ___           ___           ___           ___               &kp PG_UP     &kp HOME      &kp UP        &kp END       ___
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ___               &kp PG_DN     &kp LEFT      &kp DOWN      &kp RIGHT     ___
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          ___           ___           ___           ___           ___               ___           ___           ___           ___           ___
+     // ╰─────────────────────────────────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────────────────────────────────╯
+                                                    ___           ___               ___           ___
+     //                                           ╰─────────────┴─────────────╯   ╰─────────────┴─────────────╯
+)
 
-#if !defined OS_UNICODE_LEAD
-    #if HOST_OS == 2
-        #define OS_UNICODE_LEAD &macro_press &kp LALT      // macOS/Windows-Alt-Codes
-    #elif HOST_OS == 1
-        #define OS_UNICODE_LEAD &macro_tap &kp LS(LC(U))   // Linux
-    #else
-        #define OS_UNICODE_LEAD &macro_tap &kp RALT &kp U  // Windows + WinCompose (default)
-    #endif
-#endif
-#if !defined OS_UNICODE_TRAIL
-    #if HOST_OS == 2
-        #define OS_UNICODE_TRAIL &macro_release &kp LALT  // macOS/Windows-Alt-Codes
-    #elif HOST_OS == 1
-        #define OS_UNICODE_TRAIL &macro_tap &kp SPACE     // Linux
-    #else
-        #define OS_UNICODE_TRAIL &macro_tap &kp RET       // Windows + WinCompose (default)
-    #endif
-#endif
+ZMK_LAYER(num_layer,
+     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+          &kp ESC       &kp N7        &kp N8        &kp N9        ___               ___           ___           ___           ___           ___
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          &kp TAB       &kp N4        &kp N5        &kp N6        ___               ___           &sk RSHFT     &sk LCTRL     &sk LALT      &sk LGUI
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          ___           &kp N1        &kp N2        &kp N3        ___               ___           ___           ___           ___           ___
+     // ╰─────────────────────────────────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────────────────────────────────╯
+                                                    &kp N0        ___               ___           ___
+     //                                           ╰─────────────┴─────────────╯   ╰─────────────┴─────────────╯
+)
 
-#define UC_MACRO(name, unicode_bindings) \
-    / { \
-        macros { \
-            name: name { \
-                compatible = "zmk,behavior-macro"; \
-                wait-ms = <0>; \
-                tap-ms = <0>; \
-                #binding-cells = <0>; \
-                bindings = <OS_UNICODE_LEAD>, <&macro_tap unicode_bindings>, <OS_UNICODE_TRAIL>; \
-            }; \
-        }; \
-    };
-
-#define UC_MODMORPH(name, uc_binding, shifted_uc_binding) \
-    / { \
-        behaviors { \
-            name: name { \
-                compatible = "zmk,behavior-mod-morph"; \
-                #binding-cells = <0>; \
-                bindings = <uc_binding>, <shifted_uc_binding>; \
-                mods = <(MOD_LSFT|MOD_RSFT)>; \
-            }; \
-        }; \
-    };
-
-#define ZMK_UNICODE_SINGLE(name, L0, L1, L2, L3) \
-    UC_MACRO(name ## _lower, &kp L0 &kp L1 &kp L2 &kp L3) \
-    UC_MODMORPH(name, &name ## _lower, &none)
-
-#define ZMK_UNICODE_PAIR(name, L0, L1, L2, L3, U0, U1, U2, U3) \
-    UC_MACRO(name ## _lower, &kp L0 &kp L1 &kp L2 &kp L3) \
-    UC_MACRO(name ## _upper, &kp U0 &kp U1 &kp U2 &kp U3) \
-    UC_MODMORPH(name, &name ## _lower, &name ## _upper)
-
-/* ZMK_APPLY_MATRIX_TRANSFORM */
-
-#define ZMK_APPLY_MATRIX_TRANSFORM(transform) \
-    / { \
-        chosen { zmk,matrix_transform = &transform; }; \
-    };
+ZMK_LAYER(german_layer,
+     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+          ___           ___           ___           ___           ___               ___           ___           &de_ue        ___           ___
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          &de_ae        ___           &de_eszett    ___           ___               ___           ___           &euro_sign    ___           &de_oe
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          ___           ___           ___           ___           ___               ___           ___           ___           ___           ___
+     // ╰─────────────────────────────────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────────────────────────────────╯
+                                                    ___           ___               ___           ___
+     //                                           ╰─────────────┴─────────────╯   ╰─────────────┴─────────────╯
+)
