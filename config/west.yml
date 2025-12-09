@@ -16,5 +16,9 @@ manifest:
       path: modules/zmk/unicode
       remote: urob
       revision: main
+    - name: zmk-auto-layer
+      path: modules/zmk/auto-layer
+      remote: urob
+      revision: main
   self:
     path: config
