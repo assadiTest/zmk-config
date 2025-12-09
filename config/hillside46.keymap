@@ -107,8 +107,49 @@ acceleration-exponent = <1>;
     delay-ms = <0>;                   // 10
 };
 
-/ {
+/{
     behaviors {
+        hmu: homerow_mods_urob {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS_UROB";
+            #binding-cells = <2>;
+            bindings = <&kp>, <&kp>;
+
+            flavor = "balanced";
+            tapping-term-ms = <HM_TAPPING_TERM>;
+            quick_tap_ms = <200>;
+        };
+    };
+};
+ZMK_HOLD_TAP(hmu,
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    require-prior-idle-ms = <150>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+)
+
+ZMK_LAYER(default_layer,
+&kp GRAVE        &kp Q        &kp W            &kp E                &kp R          &kp T                                                             &kp Y         &kp U         &kp I         &kp O        &kp P           &lt 8 HU_DEG
+&mt PIPE EXCL    &hmu LGUI A  &hmu LEFT_ALT S  &hmu LEFT_CONTROL D  &hmu LSHIFT F  &kp G                                                             &kp H         &hmu RSHFT J  &hmu RCTRL K  &hmu LALT L  &hmu LGUI SEMI  &mt UNDER MINUS
+&mt TILDE ASTRK  &kp Z        &kp X            &kp C                &kp V          &kp B         &kp K_APP                          &caps_word       &kp N         &kp M         &kp COMMA     &kp DOT      &kp SLASH       &mt DQT SQT
+                                                                    &key_repeat    &lt 1 ESCAPE  &lt 2 SPACE  &lt 3 TAB  &lt 4 RET  &lt 5 BACKSPACE  &lt 6 DELETE  &key_repeat
+)
+ZMK_LAYER(symbol_layer,
+&kp KP_NUMLOCK  &kp EXCL  &kp DOLLAR   &kp AMPERSAND  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS                                  &trans  &trans      &trans     &trans    &trans    &trans
+&kp COLON       &kp AT    &kp PERCENT  &kp ASTERISK   &kp LEFT_BRACKET      &kp RIGHT_BRACKET                                      &trans  &kp LSHIFT  &kp LCTRL  &kp LALT  &kp LGUI  &trans
+&trans          &kp HASH  &kp CARET    &kp PIPE       &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans                  &trans  &trans  &trans      &trans     &trans    &trans    &trans
+                                                      &trans                &trans                 &trans  &trans  &trans  &trans  &trans  &trans
+)
+
+
+
+
+
+
+
+/// {
+//    behaviors {
 //        /*
 //        bm: balanced_homerow_mods {
 //            compatible = "zmk,behavior-hold-tap";
@@ -227,17 +268,17 @@ acceleration-exponent = <1>;
 //         * Hold: LSHIFT
 //         */
 //
-        hmu: homerow_mods_urob {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS_UROB";
-            #binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
-
-            flavor = "balanced";
-            tapping-term-ms = <HM_TAPPING_TERM>;
-            quick_tap_ms = <200>;
-        };
-    };
+//        hmu: homerow_mods_urob {
+//            compatible = "zmk,behavior-hold-tap";
+//            label = "HOMEROW_MODS_UROB";
+//            #binding-cells = <2>;
+//            bindings = <&kp>, <&kp>;
+//
+//            flavor = "balanced";
+//            tapping-term-ms = <HM_TAPPING_TERM>;
+//            quick_tap_ms = <200>;
+//        };
+//    };
 //
 //    combos {
 //        compatible = "zmk,combos";
@@ -404,7 +445,7 @@ acceleration-exponent = <1>;
 //            then-layer = <0>;
 //        };
 //    };
-};
+//};
 ZMK_LAYER(default_layer,
 &kp GRAVE        &kp Q        &kp W            &kp E                &kp R          &kp T                                                             &kp Y         &kp U         &kp I         &kp O        &kp P           &lt 8 HU_DEG
 &mt PIPE EXCL    &hmu LGUI A  &hmu LEFT_ALT S  &hmu LEFT_CONTROL D  &hmu LSHIFT F  &kp G                                                             &kp H         &hmu RSHFT J  &hmu RCTRL K  &hmu LALT L  &hmu LGUI SEMI  &mt UNDER MINUS
