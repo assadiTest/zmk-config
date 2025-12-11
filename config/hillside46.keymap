@@ -1,11 +1,11 @@
 #include <behaviors.dtsi>
-#include "zmk-helpers/key-labels/hillside46.h"
 #include <behaviors/num_word.dtsi> // Requires zmk-auto-layer module.
 #include <behaviors/unicode.dtsi> // Requires zmk-unicode module.
-#include <zmk-helpers/helper.h> // Requires zmk-helpers module.
+#include <helper.h> // Requires zmk-helpers module.
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
+#include "zmk-helpers/key-labels/hillside46.h"
 
 #define DEF 0
 #define NAV 1
