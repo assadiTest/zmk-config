@@ -314,5 +314,6 @@ ZMK_MACRO(leader_sft, bindings = <&sk LSHFT &leader>;)
             label = "Fun";
         }; 
       };
+
     };
 };
